@@ -1,56 +1,100 @@
-import { RouteLink } from "@/components/ui/route-link";
-import { characters } from "@/data/characters";
+import Link from "next/link";
+import type { CSSProperties } from "react";
 
-const plannedFlow = [
-  "Landing",
-  "Quote / flower experience",
-  "Character selection",
-  "Character case file",
-  "Timeline breach",
-  "Alternate timeline",
-  "Results / rankings",
+const lines = ["useless people", "presents", "useless", "people!!"];
+
+const tileStyles = [
+  "bg-[#f9f3e6] text-[#111111] font-serif",
+  "bg-[#ebe6e8] text-[#32373b] font-mono",
+  "bg-[#9facb6] text-white font-serif",
+  "bg-[#64666a] text-white font-serif",
+  "bg-[#f3eddd] text-[#3b3330] font-mono",
+  "bg-[#ccd6dc] text-[#555b60] font-serif",
+  "bg-[#ede6eb] text-[#111111] font-serif",
+  "bg-[#b9ae9c] text-[#211b18] font-mono",
 ];
 
-export function IntroScreen() {
-  const firstCharacter = characters[0];
+function getTileStyle(lineIndex: number, letterIndex: number) {
+  return tileStyles[(lineIndex * 5 + letterIndex) % tileStyles.length];
+}
+
+function getRotation(lineIndex: number, letterIndex: number) {
+  const rotations = [-3, 2, -1, 1.5, -2, 2.5, -1.5, 1];
+
+  return rotations[(lineIndex * 7 + letterIndex) % rotations.length];
+}
+
+function getOffset(lineIndex: number, letterIndex: number) {
+  const offsets = [0, -5, 4, -2, 3, -4, 2, 1];
+
+  return offsets[(lineIndex * 3 + letterIndex) % offsets.length];
+}
+
+function LetterTile({
+  char,
+  letterIndex,
+  lineIndex,
+}: {
+  char: string;
+  letterIndex: number;
+  lineIndex: number;
+}) {
+  if (char === " ") {
+    return <span className="w-3 sm:w-5" aria-hidden="true" />;
+  }
 
   return (
-    <section className="grid gap-10">
-      <div className="max-w-3xl">
-        <p className="mb-3 text-sm font-medium text-blue-note">
-          Phase 1 functional foundation
-        </p>
-        <h1 className="text-4xl font-semibold sm:text-5xl">
-          USELESS PEOPLE
-        </h1>
-        <p className="mt-5 max-w-2xl text-lg leading-8 text-muted">
-          A deliberately useless stage for overlooked characters who were
-          narratively blue in a world that kept choosing red.
-        </p>
-      </div>
+    <span
+      className={
+        "landing-letter inline-grid place-items-center shadow-[0_5px_9px_rgba(64,56,43,0.14)] " +
+        getTileStyle(lineIndex, letterIndex)
+      }
+      style={
+        {
+          "--letter-rotation": getRotation(lineIndex, letterIndex) + "deg",
+          "--letter-y": getOffset(lineIndex, letterIndex) + "px",
+          "--juggle-delay": lineIndex * 0.18 + letterIndex * 0.035 + "s",
+        } as CSSProperties
+      }
+    >
+      {char}
+    </span>
+  );
+}
 
-      <div className="flex flex-wrap gap-3">
-        <RouteLink href="/quote" variant="primary">
-          Start with the quote
-        </RouteLink>
-        <RouteLink href="/characters">Browse characters</RouteLink>
-        <RouteLink href={"/character/" + firstCharacter.slug}>
-          Open first case file
-        </RouteLink>
-      </div>
+export function IntroScreen() {
+  return (
+    <section className="landing-stage" aria-label="USELESS PEOPLE landing">
+      <div className="retro-star retro-star-one" aria-hidden="true" />
+      <div className="retro-star retro-star-two" aria-hidden="true" />
 
-      <section aria-labelledby="phase-one-routes" className="border-t border-line pt-8">
-        <h2 id="phase-one-routes" className="text-xl font-semibold">
-          Current route skeleton
-        </h2>
-        <ol className="mt-4 grid gap-2 text-muted sm:grid-cols-2">
-          {plannedFlow.map((step) => (
-            <li className="border border-line bg-white px-4 py-3" key={step}>
-              {step}
-            </li>
+      <div className="landing-card">
+        <h1
+          className="landing-title"
+          aria-label="useless people presents useless people!!"
+        >
+          {lines.map((line, lineIndex) => (
+            <span className="landing-line" key={line}>
+              {Array.from(line).map((char, letterIndex) => (
+                <LetterTile
+                  char={char}
+                  letterIndex={letterIndex}
+                  lineIndex={lineIndex}
+                  key={line + "-" + letterIndex}
+                />
+              ))}
+            </span>
           ))}
-        </ol>
-      </section>
+        </h1>
+
+        <Link
+          className="landing-next"
+          href="/quote"
+          aria-label="Go to quote page"
+        >
+          <span aria-hidden="true">&rsaquo;</span>
+        </Link>
+      </div>
     </section>
   );
 }

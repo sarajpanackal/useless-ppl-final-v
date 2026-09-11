@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import { characters } from "@/data/characters";
 
@@ -14,6 +17,12 @@ const navLinks = [
 ];
 
 export function SiteShell({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
+
+  if (pathname === "/") {
+    return <div className="min-h-screen bg-white text-foreground">{children}</div>;
+  }
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="border-b border-line">
