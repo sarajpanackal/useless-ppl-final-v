@@ -1,5 +1,7 @@
+"use client";
+
 import Link from "next/link";
-import type { CSSProperties } from "react";
+import type { CSSProperties, PointerEvent } from "react";
 
 const lines = ["useless people", "presents", "useless", "people!!"];
 
@@ -63,12 +65,66 @@ function LetterTile({
 }
 
 export function IntroScreen() {
+  function tracePointer(event: PointerEvent<HTMLDivElement>) {
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const x = ((event.clientX - bounds.left) / bounds.width - 0.5) * 2;
+    const y = ((event.clientY - bounds.top) / bounds.height - 0.5) * 2;
+
+    event.currentTarget.style.setProperty("--mouse-bg-x", `${50 + x * 8}%`);
+    event.currentTarget.style.setProperty("--mouse-bg-y", `${42 + y * 6}%`);
+    event.currentTarget.style.setProperty("--mouse-card-x", `${x * 0.18}rem`);
+    event.currentTarget.style.setProperty("--mouse-card-y", `${y * 0.12}rem`);
+    event.currentTarget.style.setProperty("--mouse-title-x", `${x * 0.85}rem`);
+    event.currentTarget.style.setProperty("--mouse-title-y", `${y * 0.55}rem`);
+    event.currentTarget.style.setProperty("--letter-drift-x", `${x * 0.16}rem`);
+    event.currentTarget.style.setProperty(
+      "--letter-drift-x-reverse",
+      `${x * -0.1}rem`,
+    );
+    event.currentTarget.style.setProperty("--letter-drift-y-up", `${y * 0.08}rem`);
+    event.currentTarget.style.setProperty(
+      "--letter-drift-y-down",
+      `${y * 0.06}rem`,
+    );
+  }
+
+  function releasePointer(event: PointerEvent<HTMLDivElement>) {
+    event.currentTarget.style.setProperty("--mouse-bg-x", "50%");
+    event.currentTarget.style.setProperty("--mouse-bg-y", "42%");
+    event.currentTarget.style.setProperty("--mouse-card-x", "0rem");
+    event.currentTarget.style.setProperty("--mouse-card-y", "0rem");
+    event.currentTarget.style.setProperty("--mouse-title-x", "0rem");
+    event.currentTarget.style.setProperty("--mouse-title-y", "0rem");
+    event.currentTarget.style.setProperty("--letter-drift-x", "0rem");
+    event.currentTarget.style.setProperty("--letter-drift-x-reverse", "0rem");
+    event.currentTarget.style.setProperty("--letter-drift-y-up", "0rem");
+    event.currentTarget.style.setProperty("--letter-drift-y-down", "0rem");
+  }
+
   return (
     <section className="landing-stage" aria-label="USELESS PEOPLE landing">
       <div className="retro-star retro-star-one" aria-hidden="true" />
       <div className="retro-star retro-star-two" aria-hidden="true" />
 
-      <div className="landing-card">
+      <div
+        className="landing-card"
+        onPointerLeave={releasePointer}
+        onPointerMove={tracePointer}
+        style={
+          {
+            "--mouse-bg-x": "50%",
+            "--mouse-bg-y": "42%",
+            "--mouse-card-x": "0rem",
+            "--mouse-card-y": "0rem",
+            "--mouse-title-x": "0rem",
+            "--mouse-title-y": "0rem",
+            "--letter-drift-x": "0rem",
+            "--letter-drift-x-reverse": "0rem",
+            "--letter-drift-y-up": "0rem",
+            "--letter-drift-y-down": "0rem",
+          } as CSSProperties
+        }
+      >
         <h1
           className="landing-title"
           aria-label="useless people presents useless people!!"

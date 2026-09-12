@@ -20,6 +20,12 @@ export type CharacterStats = {
   [metric: string]: number | string | boolean;
 };
 
+export type CharacterCardAssets = {
+  front: string;
+  selected: string;
+  back: string;
+};
+
 export type TimelineEvent = {
   id: string;
   sequence: number;
@@ -36,6 +42,9 @@ export type Character = {
   source: string;
   mediaType: MediaType;
   image?: string;
+  cardAssets: CharacterCardAssets;
+  chooseLabel: string;
+  dossierLabel: string;
   shortDescription: string;
   uselessReason: string;
   stats: CharacterStats;
@@ -50,10 +59,18 @@ export const characters: Character[] = [
     name: "Glixon",
     source: "Bethlehem Kudumba Unit",
     mediaType: "film",
+    image: "/characters/glixon/front.jpeg",
+    cardAssets: {
+      front: "/characters/glixon/front.jpeg",
+      selected: "/characters/glixon/selected.jpeg",
+      back: "/characters/glixon/back.jpeg",
+    },
+    chooseLabel: "CHOOSE HIM",
+    dossierLabel: "Unit 02 // Glixxon",
     shortDescription:
-      "A placeholder case file for a side character awaiting human-written glory.",
+      "Disregarded clutch operative, filed from Bethlehem Kudumba Unit.",
     uselessReason:
-      "Canon has not yet filed the paperwork required to make this person narratively unavoidable.",
+      "The family is already in chaos. He is told to stay back, naturally gets involved, and notices what everyone else missed.",
     stats: {
       plotRelevance: 18,
       protagonistEnergy: 41,
@@ -89,10 +106,18 @@ export const characters: Character[] = [
     name: "Ursula",
     source: "Spider-Man",
     mediaType: "film",
+    image: "/characters/ursula/front.jpeg",
+    cardAssets: {
+      front: "/characters/ursula/front.jpeg",
+      selected: "/characters/ursula/selected.jpeg",
+      back: "/characters/ursula/back.jpeg",
+    },
+    chooseLabel: "CHOOSE HER",
+    dossierLabel: "Unit 03 // Ursula",
     shortDescription:
-      "A tiny local-data entry for someone who brought softness to a much louder story.",
+      "Civilian ally from New York Apt 4C, carrying cake-level narrative relevance.",
     uselessReason:
-      "She was present, kind, and narratively underpaid. Phase 1 refuses to fix that without direction.",
+      "The city is tearing itself apart, Peter is collapsing, and then there is a gentle knock at the door.",
     stats: {
       plotRelevance: 24,
       protagonistEnergy: 35,
@@ -128,10 +153,18 @@ export const characters: Character[] = [
     name: "Private",
     source: "Madagascar",
     mediaType: "animation",
+    image: "/characters/private/front.jpeg",
+    cardAssets: {
+      front: "/characters/private/front.jpeg",
+      selected: "/characters/private/selected.jpeg",
+      back: "/characters/private/back.jpeg",
+    },
+    chooseLabel: "CHOOSE HIM",
+    dossierLabel: "Agent 04 // Private",
     shortDescription:
-      "A local placeholder for a character with suspiciously high sincerity density.",
+      "Private baby-form operative with hyper-cuteness and heart.",
     uselessReason:
-      "The ensemble moved fast, and the smallest earnest one did not always get the thesis statement.",
+      "Hatched in Antarctica, rescued from leopard seals, and somehow classified as a weapon of mass pacification.",
     stats: {
       plotRelevance: 38,
       protagonistEnergy: 48,
@@ -160,6 +193,53 @@ export const characters: Character[] = [
     ],
     ending:
       "Alternate ending intentionally unwritten until the human chooses the joke and sincerity levels.",
+  },
+  {
+    id: "char-meg-griffin",
+    slug: "meg-griffin",
+    name: "Meg Griffin",
+    source: "Family Guy",
+    mediaType: "animation",
+    image: "/characters/meg-griffin/front.jpeg",
+    cardAssets: {
+      front: "/characters/meg-griffin/front.jpeg",
+      selected: "/characters/meg-griffin/selected.jpeg",
+      back: "/characters/meg-griffin/back.jpeg",
+    },
+    chooseLabel: "CHOOSE HER",
+    dossierLabel: "Unit 04 // Meg Griffin",
+    shortDescription:
+      "Family scapegoat and confirmed lightning rod of Spooner Street.",
+    uselessReason:
+      "Canon made her a lightning rod, then acted surprised when the room kept getting struck.",
+    stats: {
+      plotRelevance: 29,
+      protagonistEnergy: 22,
+      writerAttention: 19,
+      plotArmor: 11,
+    },
+    timeline: [
+      {
+        id: "meg-canon-note",
+        sequence: 1,
+        label: "Canon",
+        title: "The room points at the same target",
+        description:
+          "A placeholder for the family pattern that keeps treating Meg like furniture with feelings.",
+        eventType: "canon",
+      },
+      {
+        id: "meg-breach-note",
+        sequence: 2,
+        label: "Breach",
+        title: "The lightning rod starts conducting plot",
+        description:
+          "The archive exists, but the actual alternate scene still belongs to the human.",
+        eventType: "breach",
+      },
+    ],
+    ending:
+      "Alternate ending waiting for the human to decide how tragic the joke is allowed to become.",
   },
 ];
 
