@@ -8,9 +8,44 @@ The emotional thesis is:
 
 The project is not meant to become useful. It is not a productivity app, recommendation engine, social platform, AI assistant, rankings product, or practical tool hiding behind a joke. Its whole point is unnecessary narrative seriousness applied to people canon forgot to treat like protagonists.
 
+---
+
+## Recent Redesign & Optimizations (Clean UI & Feature Polish)
+
+The application has been completely redesigned with a cleaner, high-end editorial UI while strictly preserving the original 3D flip card idea, all built-in characters, and narrative lore:
+
+1. **Enhanced 3D Flip Card Architecture (`character-card.tsx`)**:
+   - Preserved authentic 3D perspective flip along the Y-axis.
+   - Added dual-sided flip triggers so cards can be freely flipped to the classified dossier and back to the front badge anytime.
+   - Structured back dossier layout with classified stamps, canonical neglect evidence, live vote confirmation feedback, and direct deep links to the character's **Case File** and **Timeline Breach**.
+
+2. **Unified Classified Archive Header & Tactile Audio (`site-nav.tsx`, `audio-effects.ts`)**:
+   - Minimalist top-level classified archive header with active phase route indicators (`01 // INTRO`, `02 // THESIS`, `03 // DOSSIERS`, `04 // LEADERBOARD`).
+   - Integrated Web Audio synthesizer for tactile card flip swooshes, clicks, and vote stamp feedback (with a persistent mute/unmute toggle, zero external MP3/WAV files needed).
+
+3. **Custom NPC Creator Optimization (`custom-npc-creator.tsx`)**:
+   - Added client-side HTML5 canvas image compression before saving to `localStorage` to avoid `QuotaExceededError` when users upload high-resolution phone photos.
+   - **Live 3D Card Preview**: Interactive flip preview allows creators to test their custom front and back card before saving.
+
+4. **Classified Case File Deep Dive (`character-case-file.tsx`)**:
+   - Full classified folder interface for `/character/[id]`.
+   - Evidence photo switcher (Badge, Selected, Dossier).
+   - Interactive "Redacted" text bars (click/hover black bars to reveal classified notes).
+   - Visual metric meters for *Plot Relevance*, *Protagonist Energy*, *Writer Attention*, *Plot Armor*, and calculated *Plot Neglect Score*.
+
+5. **Quantum Timeline Breach (`timeline-breach.tsx`)**:
+   - Visual branching timeline nodes detailing canon events, breach horizons, alternate narrative trajectories, and archived ending notes.
+
+6. **Leaderboard & Reaction Verdict (`leaderboard.tsx`)**:
+   - Ranked podium highlighting the #1 neglected character with proportional vote share bars.
+   - Audience emotional reaction controls (*"Too ignored"*, *"Needs cinema"*, *"Blue forever"*).
+   - Filter tabs (*All Contenders*, *Canon Legends*, *Custom NPCs*) and vote reset option.
+
+---
+
 ## What The Site Does
 
-The current version is a complete local-first Phase 1 experience:
+The current version is a complete local-first experience:
 
 - A ransom-note-style landing page introduces the project.
 - The landing text scales large on screen and reacts to mouse movement with a jittery, restless motion.
@@ -20,7 +55,7 @@ The current version is a complete local-first Phase 1 experience:
 - The character page presents four characters as retro classified dossier cards.
 - Each character has a front card, a selected card, and a back dossier card.
 - Clicking the choose area flips the card with a 3D flip animation.
-- The back of each card exposes a vote action.
+- The back of each card exposes a vote action and links to case files and timelines.
 - Voting updates that character's stored vote count.
 - The Useless Leaderboard ranks the characters by stored votes.
 - Users can also create a custom favourite NPC with uploaded front and back card images.
@@ -93,7 +128,7 @@ Saved custom NPCs are eligible for the Useless Leaderboard when they have votes.
 
 ## Visual Direction
 
-The current design language is deliberately strange and over-serious:
+The design language is deliberately strange and over-serious:
 
 - classified dossier cards
 - CRT scanlines
